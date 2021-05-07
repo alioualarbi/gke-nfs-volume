@@ -19,52 +19,60 @@ Have a look at bash script on [run.sh](./run.sh)
     gcloud compute disks create --size=10GB --zone=us-east1-b gce-nfs-disk
     Zones list or regional for high availability check https://cloud.google.com/compute/docs/regions-zo
 ```
+```shell
     # create a GKE cluster
     ## I am assume that you already run this command `gcloud init`
     ## there is no need for `gcloud config set compute/zone us-east1-b` if it is already done.
     gcloud container clusters create mappedinn-cluster --num-nodes=1 --zone us-east1-b
+```
 ## 2. Configure the context for the kubectl (if not set yet)
-
+```shell
     gcloud container clusters get-credentials mappedinn-cluster --zone us-east1-b --project amine-testing
-
+```
 
 ## 3. Create an NFS server with its PersistentVolumeClaim (PVC)
-
+```shell
     # Create a Deployment for the NFS server
     kubectl create -f nfs-server-dep.yaml
-
+```
 ## 4. Create a service for the NFS server to expose it
-
+```shell
     # Expose the NFS server
     kubectl create -f nfs-service.yaml
-
+```
 ## 5. Create NFS volume
-
+```shell
     # Creation of NFS volume (PV and PVC)
     kubectl create -f nfs-pv-pvc.yaml
-
+```
 ## 6. Create a Deployment of busybox for checking the NFS volume
-
+```shell
     # create a Deployment of busybox
     kubectl create -f busybox.yaml
     Or as an alternative add 'nfs' volume your your existing deployment (use this as a reference example)
-
+```
 ## 7. Check
 
     # you have to get the id of the pod to make the check (you will have to identify the name of the pod)
-    kubectl exec nfs-busybox-2762569073-b2m99  -- cat /mnt/index.html
-
+```shell
+   kubectl exec nfs-busybox-2762569073-b2m99  -- cat /mnt/index.html
+```
 ## 8. Clean up
 
     # clean up the cluster (don't forget the clean up the cluster to not get charged)
-    kubectl delete deployment nfs-busybox
+```shell
+   ```shell kubectl delete deployment nfs-busybox
     kubectl delete service nfs-server
-    kubectl delete deployment nfs-server
+    kubectl``` delete deployment nfs-server
     kubectl delete pvc nfs
     kubectl delete pv nfs
+```
+## 9. Delete the cluser
+```shell
+   gcloud container clusters delete mappedinn-cluster --zone us-east1-b
+```
 
-    ## delete the cluser
-    gcloud container clusters delete mappedinn-cluster --zone us-east1-b
-
-    ## deleting the GCE PV
+## 10. Deleting the GCE PV
+```shell
     gcloud compute disks delete gce-nfs-disk --zone us-east1-b
+```
