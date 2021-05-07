@@ -17,13 +17,12 @@ Have a look at bash script on [run.sh](./run.sh)
 ```shell
     # create a GCE persistent disk
     gcloud compute disks create --size=10GB --zone=us-east1-b gce-nfs-disk
-    Zones list or regional for high availability check https://cloud.google.com/compute/docs/regions-zo```
-```shell
+    Zones list or regional for high availability check https://cloud.google.com/compute/docs/regions-zo
+```
     # create a GKE cluster
     ## I am assume that you already run this command `gcloud init`
     ## there is no need for `gcloud config set compute/zone us-east1-b` if it is already done.
     gcloud container clusters create mappedinn-cluster --num-nodes=1 --zone us-east1-b
-```
 ## 2. Configure the context for the kubectl (if not set yet)
 
     gcloud container clusters get-credentials mappedinn-cluster --zone us-east1-b --project amine-testing
