@@ -23,7 +23,7 @@ gcloud container clusters get-credentials mappedinn-cluster --zone us-east1-b --
 
 kubectl create -f nfs-server-dep.yaml # have a look on https://kubernetes.io/docs/concepts/storage/volumes/#gcepersistentdisk
 kubectl create -f nfs-service.yaml
-kubectl create -f 03-pv-and-pvc-nfs.yml
+kubectl create -f nfs-pv-pvc.yaml
 kubectl create -f 04-dep-busybox.yml
 
 # check if things are correctly workiang
