@@ -14,16 +14,16 @@ Have a look at bash script on [run.sh](./run.sh)
     ## 1. Create a GKE cluster and GCE persistent disk
 
 ## 1. Create a GKE cluster and GCE persistent disk
-```shell
     # create a GCE persistent disk
+```shell
     gcloud compute disks create --size=10GB --zone=us-east1-b gce-nfs-disk
     Zones list or regional for high availability check https://cloud.google.com/compute/docs/regions-zo
 ```
-```shell
     # create a GKE cluster
     ## I am assume that you already run this command `gcloud init`
     ## there is no need for `gcloud config set compute/zone us-east1-b` if it is already done.
-    gcloud container clusters create mappedinn-cluster --num-nodes=1 --zone us-east1-b
+```shell
+   gcloud container clusters create mappedinn-cluster --num-nodes=1 --zone us-east1-b
 ```
 ## 2. Configure the context for the kubectl (if not set yet)
 ```shell
@@ -31,23 +31,23 @@ Have a look at bash script on [run.sh](./run.sh)
 ```
 
 ## 3. Create an NFS server with its PersistentVolumeClaim (PVC)
-```shell
+
     # Create a Deployment for the NFS server
+```shell
     kubectl create -f nfs-server-dep.yaml
 ```
 ## 4. Create a service for the NFS server to expose it
-```shell
     # Expose the NFS server
+```shell
     kubectl create -f nfs-service.yaml
 ```
 ## 5. Create NFS volume
-```shell
     # Creation of NFS volume (PV and PVC)
-    kubectl create -f nfs-pv-pvc.yaml
+```shell
+kubectl create -f nfs-pv-pvc.yaml
 ```
 ## 6. Create a Deployment of busybox for checking the NFS volume
 ```shell
-    # create a Deployment of busybox
     kubectl create -f busybox.yaml
     Or as an alternative add 'nfs' volume your your existing deployment (use this as a reference example)
 ```
@@ -61,7 +61,7 @@ Have a look at bash script on [run.sh](./run.sh)
 
     # clean up the cluster (don't forget the clean up the cluster to not get charged)
 ```shell
-   ```shell kubectl delete deployment nfs-busybox
+    kubectl delete deployment nfs-busybox
     kubectl delete service nfs-server
     kubectl``` delete deployment nfs-server
     kubectl delete pvc nfs
