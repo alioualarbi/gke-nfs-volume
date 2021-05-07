@@ -31,22 +31,22 @@ Have a look at bash script on [run.sh](./run.sh)
 ## 3. Create an NFS server with its PersistentVolumeClaim (PVC)
 
     # Create a Deployment for the NFS server
-    kubectl create -f 01-dep-nfs.yml
+    kubectl create -f nfs-server-dep.yaml
 
 ## 4. Create a service for the NFS server to expose it
 
     # Expose the NFS server
-    kubectl create -f 02-srv-nfs.yml
+    kubectl create -f nfs-service.yaml
 
 ## 5. Create NFS volume
 
     # Creation of NFS volume (PV and PVC)
-    kubectl create -f 03-pv-and-pvc-nfs.yml
+    kubectl create -f nfs-pv-pvc.yaml
 
 ## 6. Create a Deployment of busybox for checking the NFS volume
 
     # create a Deployment of busybox
-    kubectl create -f 04-dep-busybox.yml
+    kubectl create -f busybox.yaml
     Or as an alternative add 'nfs' volume your your existing deployment (use this as a reference example)
 
 ## 7. Check
