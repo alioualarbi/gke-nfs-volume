@@ -21,7 +21,7 @@ gcloud container clusters create mappedinn-cluster --num-nodes=1 --zone us-east1
 gcloud container clusters get-credentials mappedinn-cluster --zone us-east1-b --project amine-testing
 ## but it seems to be not necessary since after creating the cluster the context has been automatically changed
 
-kubectl create -f 01-dep-nfs.yml # have a look on https://kubernetes.io/docs/concepts/storage/volumes/#gcepersistentdisk
+kubectl create -f nfs-server-dep.yaml # have a look on https://kubernetes.io/docs/concepts/storage/volumes/#gcepersistentdisk
 kubectl create -f 02-srv-nfs.yml
 kubectl create -f 03-pv-and-pvc-nfs.yml
 kubectl create -f 04-dep-busybox.yml
